@@ -73,5 +73,52 @@ while running:
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_UP and direction != 3:
                 direction = 1
-            elif event.key == pygame.K_RIGHT and direction != 4:  
+            elif event.key == pygame.K_RIGHT and direction != 4: 
+                direction = 2
+            elif event.key == pygame.K_DOWN and direction != 1: 
+                direction = 3
+            elif event.key == pygame.K_LEFT and direction != 2:
+                direction = 4
+
+# Timer
+if update_snake > 99:
+    update_snake = 0 
+
+    # Move thee snakeo
+    head_X, head_Y = snake_pos[0] 
+
+    if direction == 1:
+        head_Y -= CELL_SIZE
+    elif direction == 2: 
+        head_X += CELL_SIZE
+
+
+# Snake position 
+    snake_pos.insert(0, [head_X, head_Y])
+    snake_pos.pop()
+
+    if snake_pos[0] == apple_pos:
+        apple_pos = [random.randint(0, SCREEN_WIDTH // CELL_SIZE - 1) * CELL_SIZE, random.randint(0, SCREEN_HEIGHT // CELL_SIZE - 1)* CELL_SIZE]
+        
+        snake_pos.append(snake_pos[-1])
+        score += 1 
+
+    if head_X < 0 or head_X >= SCREEN_WIDTH or head_Y < 0 or head_Y >= SCREEN_HEIGHT: 
+        running = False #Exit game
+
+        for i in range(len(snake_pos)):
+            segment = snake_pos[i]
+            if i == 0: 
+                pygame.draw.rect(screen, BODY_OUTER, (segment[0], segment[1], CELL_SIZE, CELL_SIZE))
+
+                pygame.draw.rect(screen, TOMATO, (segment[0] + 1, segment[1] + 1, CELL_SIZE - 2, CELL_SIZE - 2))
+            else: 
+                pygame.draw.rect(screen, BODY_OUTER, (segment[0], segment[1], CELL_SIZE, CELL_SIZE))
+                pygame.draw.rect(screen, BODY_INNER, (segment[0] + 1, segment[1] + 1, CELL_SIZE - 2, CELL_SIZE - 2))
+
+        pygame.display.flip()
+        update_snake += 1
+
+pygame.quit()
+sys.exit
 
