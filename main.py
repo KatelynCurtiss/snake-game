@@ -13,20 +13,8 @@ pygame.mixer.init()
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 TITLE = "SNAKE GAME! ^.^ "
-
-screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-pygame.display.set_caption(TITLE)
-
-
 CELL_SIZE = 10 
-direction = 1 # 1 is up, 2 is right, 3 is down, 4 is left
-update_snake = 0 
-score = 0 
 
-snake_pos = [[int(SCREEN_WIDTH / 2), int(SCREEN_HEIGHT / 2)]]
-snake_pos.append([int(SCREEN_WIDTH / 2), int(SCREEN_HEIGHT / 2) + CELL_SIZE])
-snake_pos.append([int(SCREEN_WIDTH / 2), int(SCREEN_HEIGHT / 2) + CELL_SIZE * 2])
-snake_pos.append([int(SCREEN_WIDTH / 2), int(SCREEN_HEIGHT / 2) + CELL_SIZE * 3]) 
 
 #colors / wallpaper
 BG = (255, 0, 255)
@@ -38,12 +26,7 @@ BODY_OUTER = (204, 204, 255)
 
 FPS = 10
 
-# Define apple position
 
-apple_pos = [random.randint(0, SCREEN_WIDTH // CELL_SIZE - 1) * CELL_SIZE, random.randint(0, SCREEN_HEIGHT // CELL_SIZE - 1) * CELL_SIZE] 
-
-# Font for score
-font = pygame.font.SysFont(None, 35)
 
 def draw_snake(screen, snake_pos):
     """
