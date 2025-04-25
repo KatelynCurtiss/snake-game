@@ -36,6 +36,8 @@ TOMATO = (255, 99, 71)
 BODY_INNER = (167, 107, 207)
 BODY_OUTER = (204, 204, 255)
 
+FPS = 10
+
 # Define apple position
 
 apple_pos = [random.randint(0, SCREEN_WIDTH // CELL_SIZE - 1) * CELL_SIZE, random.randint(0, SCREEN_HEIGHT // CELL_SIZE - 1) * CELL_SIZE] 
@@ -43,6 +45,35 @@ apple_pos = [random.randint(0, SCREEN_WIDTH // CELL_SIZE - 1) * CELL_SIZE, rando
 # Font for score
 font = pygame.font.SysFont(None, 35)
 
+def draw_snake(screen, snake_pos):
+    """
+    Draw the snake on the screen using the positions stored in snake_pos.
+    Each segment of the snake is represented by a rectangle.
+    The head of the snake is drawn in RED to distinguish it from the green body.
+    """
+    index = 0 
+    for segment in snake_pos:
+
+        pygame.draw.rect(screen, BODY_OUTER, (segment[0], segment[1], CELL_SIZE, CELL_SIZE))
+        if index == 0:
+
+            pygame.draw.rect(screen, TOMATO, (segment[0] + 1, segment[1] + 1, CELL_SIZE - 2, CELL_SIZE - 2))
+        else: 
+
+            pygame.draw.rect(screen, BODY_INNER, (segment[0] + 1, segment[1] + 1, CELL_SIZE - 2, CELL_SIZE - 2))
+
+        index += 1
+
+
+def draw_apple(screen, apple_pos):
+
+        pygame.draw.rect(screen, TOMATO, (apple_pos[0], apple_pos[1], CELL_SIZE, CELL_SIZE))
+
+def draw_score(screen, score, font):
+
+    score_text = font.render(f"Score: {score}", True, Black)
+
+    screen.blit(score_text, [10, 10])
 
 def run_snake_game():
 
