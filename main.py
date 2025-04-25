@@ -5,10 +5,10 @@
 import pygame 
 import sys 
 import random
-from pygame.locals import *
+# from pygame.locals import *
 
-pygame.init()
-pygame.mixer.init()
+# pygame.init()
+# pygame.mixer.init()
 
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
@@ -19,7 +19,7 @@ CELL_SIZE = 10
 #colors / wallpaper
 BG = (255, 0, 255)
 BANANAYELLOW = (255, 255, 102)
-Black = (0,0,0)
+BLACK = (0,0,0)
 TOMATO = (255, 99, 71)
 BODY_INNER = (167, 107, 207)
 BODY_OUTER = (204, 204, 255)
@@ -50,11 +50,11 @@ def draw_snake(screen, snake_pos):
 
 def draw_apple(screen, apple_pos):
 
-        pygame.draw.rect(screen, TOMATO, (apple_pos[0], apple_pos[1], CELL_SIZE, CELL_SIZE))
+    pygame.draw.rect(screen, TOMATO, (apple_pos[0], apple_pos[1], CELL_SIZE, CELL_SIZE))
 
 def draw_score(screen, score, font):
 
-    score_text = font.render(f"Score: {score}", True, Black)
+    score_text = font.render(f"Score: {score}", True, BLACK)
 
     screen.blit(score_text, [10, 10])
 
@@ -71,14 +71,13 @@ def run_snake_game():
 
 
     snake_pos.extend([[int(SCREEN_WIDTH / 2), int(SCREEN_HEIGHT / 2) + CELL_SIZE * i] for i in range(1, 4)])
-    apple_pos = [random.randint(0, SCREEN_WIDTH // CELL_SIZE - 1) * CELL_SIZE,
-    random.randint(0, SCREEN_HEIGHT // CELL_SIZE - 1) * CELL_SIZE] 
+    apple_pos = [random.randint(0, SCREEN_WIDTH // CELL_SIZE - 1) * CELL_SIZE, random.randint(0, SCREEN_HEIGHT // CELL_SIZE - 1) * CELL_SIZE] 
 
     font = pygame.font.SysFont(None, 35) # Font used for displaying the score
 
     try:
 
-        pygame.mixer.music.load('Joe Hisaishi Merry Go Round of Life from Howls Moving Castle.mp3')
+        pygame.mixer.music.load('joe.mp3')
         pygame.mixer.music.set_volume(0.5) 
         pygame.mixer.music.play(-1) 
     except pygame.error as e:
@@ -119,15 +118,14 @@ def run_snake_game():
         if snake_pos[0] == apple_pos:
             while apple_pos in snake_pos:
 
-                apple_pos = [random.randint(0, SCREEN_WIDTH // CELL_SIZE - 1) * CELL_SIZE,
-                random.randint(0, SCREEN_HEIGHT // CELL_SIZE - 1) * CELL_SIZE]
+                apple_pos = [random.randint(0, SCREEN_WIDTH // CELL_SIZE - 1) * CELL_SIZE, random.randint(0, SCREEN_HEIGHT // CELL_SIZE - 1) * CELL_SIZE]
 
-        score += 1 
-    else:
-        snake_pos.pop() 
+            score += 1 
+        else:
+            snake_pos.pop() 
 
 
-    if head_x < 0 or head_x >= SCREEN_WIDTH or head_y < 0 or head_y >= SCREEN_HEIGHT or snake_pos[0] in snake_pos[1:]:
+        if head_x < 0 or head_x >= SCREEN_WIDTH or head_y < 0 or head_y >= SCREEN_HEIGHT or snake_pos[0] in snake_pos[1:]:
             running_game = False 
 
             pygame.display.flip() 
@@ -164,7 +162,6 @@ def main_menu():
         screen.fill((50, 50, 50)) 
 
         pygame.draw.rect(screen, button_color, play_button_rect)
-
         screen.blit(play_text, play_text_rect) 
 
         pygame.draw.rect(screen, button_color, exit_button_rect) 
